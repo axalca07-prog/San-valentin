@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menú Especial Gaby 💖</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            margin-top: 80px;
+        }
+
+        h1 {
+            font-size: 38px;
+            color: #b3003c;
+        }
+
+        h2 {
+            color: #800040;
+        }
+
+        p {
+            font-size: 20px;
+            color: #4d0026;
+            margin: 10px 30px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            margin: 15px;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .yes {
+            background-color: #ff3366;
+            color: white;
+        }
+
+        .yes:hover {
+            transform: scale(1.1);
+        }
+
+        .no {
+            background-color: #999;
+            color: white;
+            position: absolute;
+        }
+
+        .menu {
+            background: rgba(255,255,255,0.7);
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 20px;
+            width: 70%;
+        }
+
+        iframe {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Menú Especial Gaby 💖</h1>
+
+    <div class="menu">
+        <h2>Entrada</h2>
+        <p>Risas contigo ✨</p>
+
+        <h2>Plato Fuerte</h2>
+        <p>Una cita especial este sábado en Chili's 🔥🌶️</p>
+
+        <h2>Postre</h2>
+        <p>Muchos momentos más juntos 💕</p>
+    </div>
+
+    <p>Hoy se cumplen 3 años desde que estoy contigo...</p>
+    <p>Y no quiero que solo hoy seas mi Valentín,</p>
+    <p>quiero que lo seas siempre 💘</p>
+
+    <h2>¿Aceptas ser mi Valentín?</h2>
+
+    <button class="yes" onclick="respuesta()">Sí, siempre 💕</button>
+    <button class="no" onmouseover="mover()">No 🙈</button>
+</div>
+
+<!-- Música -->
+<iframe id="musica" width="0" height="0"
+src="https://www.youtube.com/embed/ozv4q2ov3Mk?autoplay=1&loop=1&playlist=ozv4q2ov3Mk">
+</iframe>
+
+<script>
+function respuesta(){
+    document.body.innerHTML = `
+    <h1 style="margin-top:120px;color:#b3003c;">Sabía que dirías que sí 💖</h1>
+    <p style="font-size:22px;">Entonces prepárate...</p>
+    <p style="font-size:22px;">Este sábado tenemos cita en Chili's 🔥</p>
+    <p style="font-size:22px;">Y quiero seguir celebrando muchos años más contigo 💕</p>
+    `;
+}
+
+function mover(){
+    var btn = document.querySelector(".no");
+    btn.style.top = Math.random() * window.innerHeight + "px";
+    btn.style.left = Math.random() * window.innerWidth + "px";
+}
+</script>
+
+</body>
+</html>
