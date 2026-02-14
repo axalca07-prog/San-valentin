@@ -1,120 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Men√∫ Especial Gaby üíñ</title>
+    <meta charset="UTF-8">
+    <title>Men˙ Especial Gaby </title>
     <style>
         body {
             text-align: center;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #ffdde1, #ee9ca7);
             margin: 0;
             padding: 0;
-            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
-        .container {
-            margin-top: 80px;
-        }
+        .container { padding: 20px; }
+        h1 { font-size: 32px; color: #b3003c; }
+        h2 { color: #800040; }
+        p { font-size: 18px; color: #4d0026; }
 
-        h1 {
-            font-size: 38px;
-            color: #b3003c;
-        }
-
-        h2 {
-            color: #800040;
-        }
-
-        p {
-            font-size: 20px;
-            color: #4d0026;
-            margin: 10px 30px;
+        .menu {
+            background: rgba(255,255,255,0.7);
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 400px;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 15px 25px;
             font-size: 18px;
-            margin: 15px;
+            margin: 10px;
             border-radius: 25px;
             border: none;
             cursor: pointer;
             transition: 0.3s;
         }
 
-        .yes {
-            background-color: #ff3366;
-            color: white;
-        }
+        .yes { background-color: #ff3366; color: white; }
+        .no { background-color: #999; color: white; position: absolute; }
 
-        .yes:hover {
-            transform: scale(1.1);
-        }
-
-        .no {
-            background-color: #999;
-            color: white;
-            position: absolute;
-        }
-
-        .menu {
-            background: rgba(255,255,255,0.7);
-            margin: 30px auto;
-            padding: 20px;
-            border-radius: 20px;
-            width: 70%;
-        }
-
-        iframe {
+        .carta {
             display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            width: 80%;
+            max-width: 500px;
+            animation: fadeIn 1s;
         }
+
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Men√∫ Especial Gaby üíñ</h1>
+<div id="contenido-principal" class="container">
+    <h1>Men˙ Especial Gaby </h1>
 
     <div class="menu">
         <h2>Entrada</h2>
-        <p>Risas contigo ‚ú®</p>
-
+        <p>Risas contigo </p>
         <h2>Plato Fuerte</h2>
-        <p>Una cita especial este s√°bado en Chili's üî•üå∂Ô∏è</p>
-
+        <p>Una cita especial este s·bado en Chili's </p>
         <h2>Postre</h2>
-        <p>Muchos momentos m√°s juntos üíï</p>
+        <p>Muchos momentos m·s juntos </p>
     </div>
 
-    <p>Hoy se cumplen 3 a√±os desde que estoy contigo...</p>
-    <p>Y no quiero que solo hoy seas mi Valent√≠n,</p>
-    <p>quiero que lo seas siempre üíò</p>
+    <p>Este dÌa ya lo hemos festejado por 3 aÒos...</p>
+    <p>øAceptas ser mi ValentÌn siempre? </p>
 
-    <h2>¬øAceptas ser mi Valent√≠n?</h2>
-
-    <button class="yes" onclick="respuesta()">S√≠, siempre üíï</button>
-    <button class="no" onmouseover="mover()">No üôà</button>
+    <button class="yes" onclick="aceptar()">SÌ, siempre </button>
+    <button class="no" onmouseover="mover()">No </button>
 </div>
 
-<!-- M√∫sica -->
-<iframe id="musica" width="0" height="0"
-src="https://www.youtube.com/embed/ozv4q2ov3Mk?autoplay=1&loop=1&playlist=ozv4q2ov3Mk">
-</iframe>
+<div id="seccion-carta" class="carta">
+    <h2 style="color: #b3003c;"> Tu carta</h2>
+    <p style="text-align: justify; line-height: 1.6;">
+        Soy el hombre mas afortunado de tenerte como compaÒÌa. Yo quiero que no solo hoy seas mi ValentÌn, sino siempre. Quiero estar contigo mucho tiempo, eres una persona especial para mÌ, eres la mejor. Te amo mucho. Hoy no es un dÌa especial, ya que todos han sido especiales desde que te conocÌ. Te amo.
+    </p>
+    <p> <b>Nos vemos el s·bado en Chili's</b> </p>
+</div>
+
+<div id="player"></div>
 
 <script>
-function respuesta(){
-    document.body.innerHTML = `
-    <h1 style="margin-top:120px;color:#b3003c;">Sab√≠a que dir√≠as que s√≠ üíñ</h1>
-    <p style="font-size:22px;">Entonces prep√°rate...</p>
-    <p style="font-size:22px;">Este s√°bado tenemos cita en Chili's üî•</p>
-    <p style="font-size:22px;">Y quiero seguir celebrando muchos a√±os m√°s contigo üíï</p>
-    `;
-}
+    // Carga la API de YouTube
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-function mover(){
-    var btn = document.querySelector(".no");
-    btn.style.top = Math.random() * window.innerHeight + "px";
-    btn.style.left = Math.random() * window.innerWidth + "px";
-}
+    var player;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0',
+            width: '0',
+            videoId: 'ozv4q2ov3Mk', // La canciÛn que elegiste
+            events: { 'onReady': onPlayerReady }
+        });
+    }
+
+    function onPlayerReady(event) {
+        // El reproductor est· listo
+    }
+
+    function aceptar() {
+        // 1. Reproduce la m˙sica
+        player.playVideo();
+
+        // 2. Cambia la vista
+        document.getElementById('contenido-principal').style.display = 'none';
+        document.getElementById('seccion-carta').style.display = 'block';
+    }
+
+    function mover() {
+        var btn = document.querySelector(".no");
+        btn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+        btn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    }
 </script>
 
 </body>
